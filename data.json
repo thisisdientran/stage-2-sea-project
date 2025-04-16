@@ -1,0 +1,22 @@
+[
+    { "id": 1, "season": "summer", "vibe": "casual", "occasion": "daily" },
+    { "id": 2, "season": "fall", "vibe": "smart casual", "occasion": "work" },
+    { "id": 3, "season": "spring", "vibe": "minimalist", "occasion": "date" },
+    { "id": 4, "season": "winter", "vibe": "streetwear", "occasion": "hangout" },
+    { "id": 5, "season": "summer", "vibe": "athleisure", "occasion": "travel" },
+    { "id": 6, "season": "spring", "vibe": "casual", "occasion": "daily" },
+    { "id": 7, "season": "fall", "vibe": "smart casual", "occasion": "date" },
+    { "id": 8, "season": "winter", "vibe": "minimalist", "occasion": "work" },
+    { "id": 9, "season": "summer", "vibe": "streetwear", "occasion": "hangout" },
+    { "id": 10, "season": "spring", "vibe": "athleisure", "occasion": "travel" },
+    { "id": 11, "season": "fall", "vibe": "casual", "occasion": "daily" },
+    { "id": 12, "season": "winter", "vibe": "smart casual", "occasion": "work" },
+    { "id": 13, "season": "spring", "vibe": "minimalist", "occasion": "hangout" },
+    { "id": 14, "season": "summer", "vibe": "streetwear", "occasion": "date" },
+    { "id": 15, "season": "fall", "vibe": "athleisure", "occasion": "travel" },
+    { "id": 16, "season": "winter", "vibe": "casual", "occasion": "work" },
+    { "id": 17, "season": "spring", "vibe": "smart casual", "occasion": "date" },
+    { "id": 18, "season": "summer", "vibe": "minimalist", "occasion": "daily" },
+    { "id": 19, "season": "fall", "vibe": "streetwear", "occasion": "hangout" },
+    { "id": 20, "season": "winter", "vibe": "athleisure", "occasion": "travel" }
+  ]

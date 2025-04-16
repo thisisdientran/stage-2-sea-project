@@ -23,6 +23,32 @@
  *
  */
 
+function fetchData(){
+  return fetch('./data.json')
+  .then(response => response.json())
+  // .then(data =>{
+  //   console.log("Display fetch data: " + data);
+  // })
+  // // For testing
+  .catch(error => {
+    console.log("Fetch got error: ", error);
+    return [];
+  });
+}
+
+function filterStyles(data, filters) {
+  try {
+    return data.filter(item => {
+      return Object.keys(filters).every(key => {
+        return filters[key] === "" || item[key] === filters[key];
+      });
+    });
+  } catch (error) {
+    console.error("Filter error:", error);
+    return [];
+  }
+}
+
 const FRESH_PRINCE_URL =
   "https://upload.wikimedia.org/wikipedia/en/3/33/Fresh_Prince_S1_DVD.jpg";
 const CURB_POSTER_URL =
@@ -45,40 +71,25 @@ function showCards() {
   cardContainer.innerHTML = "";
   const templateCard = document.querySelector(".card");
 
-  for (let i = 0; i < titles.length; i++) {
-    let title = titles[i];
-
-    // This part of the code doesn't scale very well! After you add your
-    // own data, you'll need to do something totally different here.
-    let imageURL = "";
-    if (i == 0) {
-      imageURL = FRESH_PRINCE_URL;
-    } else if (i == 1) {
-      imageURL = CURB_POSTER_URL;
-    } else if (i == 2) {
-      imageURL = EAST_LOS_HIGH_POSTER_URL;
+  fetchData().then(data => {
+    for (const item of data) {
+      const nextCard = templateCard.cloneNode(true); // Copy the template card
+      editCardContent(nextCard, item.id, item.occasion); // Edit title and image
+      cardContainer.appendChild(nextCard); // Add new card to the container
     }
-
-    const nextCard = templateCard.cloneNode(true); // Copy the template card
-    editCardContent(nextCard, title, imageURL); // Edit title and image
-    cardContainer.appendChild(nextCard); // Add new card to the container
-  }
+  });
 }
 
-function editCardContent(card, newTitle, newImageURL) {
+function editCardContent(card, newId, newOccasion) {
   card.style.display = "block";
 
-  const cardHeader = card.querySelector("h2");
-  cardHeader.textContent = newTitle;
+  const nextCard = card.querySelector(".id");
+  nextCard.textContent = newId;
 
-  const cardImage = card.querySelector("img");
-  cardImage.src = newImageURL;
-  cardImage.alt = newTitle + " Poster";
+  const cardOccasion = card.querySelector(".occasion");
+  cardOccasion.textContent = newOccasion;
 
-  // You can use console.log to help you debug!
-  // View the output by right clicking on your website,
-  // select "Inspect", then click on the "Console" tab
-  console.log("new card:", newTitle, "- html: ", card);
+  console.log("new card:", newId, " ", newOccasion, "- html: ", card);
 }
 
 // This calls the addCards() function when the page is first loaded
@@ -94,4 +105,14 @@ function quoteAlert() {
 function removeLastCard() {
   titles.pop(); // Remove last item in titles array
   showCards(); // Call showCards again to refresh
+}
+
+function filterCategory(category){
+  for(let i = 1; i<=10;i++){
+
+  }
+}
+
+function sortCategory(){
+  
 }
