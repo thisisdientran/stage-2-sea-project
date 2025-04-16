@@ -22,31 +22,21 @@
  *    with the string you added to the array, but a broken image.
  *
  */
+let itemData = [];
+let filter = [];
 
 function fetchData(){
   return fetch('./data.json')
   .then(response => response.json())
-  // .then(data =>{
-  //   console.log("Display fetch data: " + data);
-  // })
-  // // For testing
+  .then(data => {
+    itemData = data;
+    console.log("Fetched Data:", itemData);
+    return data;
+  })
   .catch(error => {
     console.log("Fetch got error: ", error);
     return [];
   });
-}
-
-function filterStyles(data, filters) {
-  try {
-    return data.filter(item => {
-      return Object.keys(filters).every(key => {
-        return filters[key] === "" || item[key] === filters[key];
-      });
-    });
-  } catch (error) {
-    console.error("Filter error:", error);
-    return [];
-  }
 }
 
 const FRESH_PRINCE_URL =
@@ -56,44 +46,61 @@ const CURB_POSTER_URL =
 const EAST_LOS_HIGH_POSTER_URL =
   "https://static.wikia.nocookie.net/hulu/images/6/64/East_Los_High.jpg";
 
-// This is an array of strings (TV show titles)
-let titles = [
-  "Fresh Prince of Bel Air",
-  "Curb Your Enthusiasm",
-  "East Los High",
-];
 // Your final submission should have much more data than this, and
 // you should use more than just an array of strings to store it all.
 
 // This function adds cards the page to display the data in the array
-function showCards() {
+// function showCards() {
+//   const cardContainer = document.getElementById("card-container");
+//   cardContainer.innerHTML = "";
+//   const templateCard = document.querySelector(".card");
+
+//   for (let i = 0; i < itemData.length; i++) {
+//     const nextCard = templateCard.cloneNode(true); // Copy the template card
+//     const item = itemData[i];
+//     editCardContent(nextCard, item.image, item.id, item.occasion, item.vibe, item.season); // Edit title and image
+//     cardContainer.appendChild(nextCard); // Add new card to the container
+//   }
+// }
+
+function showCards(filter) {
   const cardContainer = document.getElementById("card-container");
   cardContainer.innerHTML = "";
   const templateCard = document.querySelector(".card");
 
-  fetchData().then(data => {
-    for (const item of data) {
-      const nextCard = templateCard.cloneNode(true); // Copy the template card
-      editCardContent(nextCard, item.id, item.occasion); // Edit title and image
-      cardContainer.appendChild(nextCard); // Add new card to the container
-    }
-  });
+  for (let i = 0; i < filter.length; i++) {
+    const nextCard = templateCard.cloneNode(true); // Copy the template card
+    const item = filter[i];
+    editCardContent(nextCard, item.image, item.id, item.occasion, item.vibe, item.season); // Edit title and image
+    cardContainer.appendChild(nextCard); // Add new card to the container
+  }
 }
 
-function editCardContent(card, newId, newOccasion) {
+function editCardContent(card, newImage, newId, newOccasion, newVibe, newSeason) {
   card.style.display = "block";
+  
+  const cardImage = card.querySelector("img");
+  cardImage.src = newImage;
 
-  const nextCard = card.querySelector(".id");
-  nextCard.textContent = newId;
+  const cardID = card.querySelector(".id");
+  cardID.textContent = newId;
 
   const cardOccasion = card.querySelector(".occasion");
   cardOccasion.textContent = newOccasion;
 
-  console.log("new card:", newId, " ", newOccasion, "- html: ", card);
+  const cardVibe = card.querySelector(".vibe");
+  cardVibe.textContent = newVibe;
+
+  const cardSeason = card.querySelector(".season");
+  cardSeason.textContent = newSeason;
+
+  console.log("new card:", newId, " ", newOccasion, " ", newVibe, " ", newSeason, "- html: ", card);
 }
 
 // This calls the addCards() function when the page is first loaded
-document.addEventListener("DOMContentLoaded", showCards);
+fetchData().then(() => {
+  filterCategory();
+});
 
 function quoteAlert() {
   console.log("Button Clicked!");
@@ -103,16 +110,35 @@ function quoteAlert() {
 }
 
 function removeLastCard() {
-  titles.pop(); // Remove last item in titles array
-  showCards(); // Call showCards again to refresh
-}
+  // const cardContainer = document.getElementById("card-container");
 
-function filterCategory(category){
-  for(let i = 1; i<=10;i++){
-
+  if(itemData.length > 0){
+    itemData.pop();
   }
+  showCards(itemData); // Call showCards again to refresh
 }
 
-function sortCategory(){
-  
+function filterCategory(){
+  if (filter.length == 0) {
+    showCards(itemData); 
+  }
+
+  const buttons = document.querySelectorAll(".filter-btn");
+
+  buttons.forEach(button => {
+    button.addEventListener("click", (event) => {
+      const filterCategory = button.getAttribute("data-category");
+      const filterValue = button.getAttribute("data-value");
+
+      filter = [];
+
+      for (let i = 0; i < itemData.length; i++) {
+        const item = itemData[i];
+        if (item[filterCategory] === filterValue) {
+          filter.push(item);
+        }
+      }
+      showCards(filter);
+    });
+  });
 }

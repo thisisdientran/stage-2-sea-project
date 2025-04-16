@@ -9,23 +9,43 @@
 
   <body>
     <header class="main-header">
-      <h1 class="title">LA TV Shows</h1>
+      <h1 class="title">Men's Style Picks</h1>
     </header>
+ 
+    <div class="filter-section">
+      <h3>Season</h3>
+      <button class="filter-btn" data-category="season" data-value="spring">Spring</button>
+      <button class="filter-btn" data-category="season" data-value="summer">Summer</button>
+      <button class="filter-btn" data-category="season" data-value="fall">Fall</button>
+      <button class="filter-btn" data-category="season" data-value="winter">Winter</button>
+    
+      <h3>Vibe</h3>
+      <button class="filter-btn" data-category="vibe" data-value="casual">Casual</button>
+      <button class="filter-btn" data-category="vibe" data-value="streetwear">Streetwear</button>
+      <button class="filter-btn" data-category="vibe" data-value="minimalist">Minimalist</button>
+      <button class="filter-btn" data-category="vibe" data-value="athleisure">Athleisure</button>
+      <button class="filter-btn" data-category="vibe" data-value="smart casual">Smart Casual</button>
+    
+      <h3>Occasion</h3>
+      <button class="filter-btn" data-category="occasion" data-value="work">Work</button>
+      <button class="filter-btn" data-category="occasion" data-value="date">Date</button>
+      <button class="filter-btn" data-category="occasion" data-value="travel">Travel</button>
+      <button class="filter-btn" data-category="occasion" data-value="hangout">Hangout</button>
+      <button class="filter-btn" data-category="occasion" data-value="daily">Daily</button>
+    </div>
+
     <div id="card-container"></div>
-    <div class="card" style="display: none">
+
+    <div class="card template-card" style="display: none;">
+      <img src="" alt="Style Image" />
       <div class="card-content">
-        <p class="id">id</p>
-        <p class="occasion"></p>
-        <p class="vibe"></p>
-        <h2>TV Show Title</h2>
-        <img src="" alt="TV Show Poster" />
-        <ul>
-          <li>Bullet Point 1</li>
-          <li>Bullet Point 2</li>
-          <li>Bullet Point 3</li>
-        </ul>
+        <h2 class="id">Style #ID</h2>
+        <p class="occasion">Occasion</p>
+        <p class="vibe">Vibe</p>
+        <p class="season">Season</p>
       </div>
     </div>
+
     <div class="footer">
       <button onclick="quoteAlert();">Get A Quote!</button>
       <button onclick="removeLastCard();">Remove A Card!</button>
